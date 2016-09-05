@@ -1,0 +1,76 @@
+#macro (link $prefix $href $text)
+<a href="$prefix$vtEscape.url($href)" title="$vtEscape.html($text)">$vtEscape.html($text)</a>
+#end
+
+#macro (mailTo $val)
+<a href="mailto:$val" title="Send mail">$val</a>
+#end
+
+#macro (showList $val) 
+  #if ($val ) 
+    #foreach ($e in $val ) 
+      $e <br>
+    #end 
+  #end 
+#end
+
+#macro (form $action $fields $submit)
+  <form action="$action" method="post" class="form-horizontal">
+  #if ($fields)
+    #foreach ($f in $fields)
+      #if($f.type == "hidden")
+        <input id="$f.id" name="$f.name" type="$f.type" value="$f.value">
+      #elseif($f.type == "checkbox")
+        <div class="form-group">
+          <div class="col-md-offset-$f.offset col-md-$f.ctl_cols">
+            <div class="checkbox">
+              <label>
+                <input id="$f.id" name="$f.name" type="checkbox"> $f.label
+              </label>
+            </div>
+          </div>
+        </div>
+      #else
+        <div class="form-group">
+          <label for="$f.id" class="col-md-$f.lb_cols control-label">$f.label</label>
+          <div class="col-md-$f.ctl_cols">
+            <input id="$f.id" name="$f.name" type="$f.type" placeholder="$f.placeholder" class="form-control">
+          </div>
+          #if ($f.append)
+            <div class="col-md-$f.append.cols">$f.append.html</div>
+          #end
+        </div>
+      #end
+    #end
+  #end
+    <input type="hidden" name="$_csrf.parameterName" value="$_csrf.token">
+    <div class="form-group"><div class="col-md-offset-$submit.offset col-md-$submit.ctl_cols">
+      <input name="$submit.name" type="submit" value="$submit.title" class="btn $submit.css_class">
+    </div></div>
+  </form>
+#end
+
+#macro (modal $size $id $title $body $buttons)
+<div class="modal fade" id="$id" tabindex="-1">
+#if ($size == "l")
+  <div class="modal-dialog modal-lg">
+#elseif ($size == "s")
+  <div class="modal-dialog modal-sm">
+#else 
+  <div class="modal-dialog">
+#end
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">$title</h4>
+      </div>
+      <div class="modal-body">
+        $body
+      </div>
+      <div class="modal-footer">
+        $buttons
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+#end

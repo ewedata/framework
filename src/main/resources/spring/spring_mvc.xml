@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.framework"
+		use-default-filters="false">
+		<!-- 扫描符合@Controller 的类 -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!--放过/scripts下的静态文件 -->
+	<mvc:resources mapping="/static/**" location="/static/" />
+
+	<!-- 默认ServeletHandler -->
+	<mvc:default-servlet-handler />
+
+	<bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" />
+	</bean>
+
+	<!-- <bean id="viewResolver" class="com.framework.core.common.CustomViewResolver"> 
+		<property name="defaultViewResolver" ref="beanNameViewResolver" /> <property 
+		name="viewResolverMap"> <map> <entry> <key> <set> <value>.jsp</value> </set> 
+		</key> <ref bean="jspViewResolver" /> </entry> <entry> <key> <set> <value>.vm</value> 
+		<value>.htm</value> </set> </key> <ref bean="velocityViewResolver" /> </entry> 
+		</map> </property> </bean> -->
+
+	<!-- <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver"> 
+		通过读取X.properties文件，进行视图解析,这个文件位于classpath路径下，X的值是通过设置ResourceBundleViewResolver的basename属性来设定的 
+		<property name="basename" value="views" /> </bean> -->
+
+	<!-- velocity环境配置 -->
+	<bean id="velocityConfig"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<!-- velocity配置文件路径 -->
+		<property name="configLocation" value="/WEB-INF/velocity/velocity.properties" />
+		<!-- velocity模板路径 -->
+		<property name="resourceLoaderPath" value="/WEB-INF/" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="velocimacro.library">velocity/vmacro.vm</prop>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="contentType">text/html;charset=UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- velocity视图解析器 -->
+	<bean id="velocityViewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="cache" value="true"></property>
+		<property name="contentType" value="text/html;charset=UTF-8"></property>
+		<property name="suffix" value=".html" />
+		<property name="prefix" value="views/" />
+		<property name="layoutUrl" value="views/layout/layout.html" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="allowRequestOverride" value="true" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml" />
+		<property name="order" value="2" />
+	</bean>
+
+
+	<!-- jsp视图解析 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="order" value="6" />
+	</bean>
+
+	<!-- 文件上传解析 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxInMemorySize" value="1024000" />
+		<property name="maxUploadSize" value="1024000000" />
+		<property name="uploadTempDir" value="/static/upload" />
+	</bean>
+
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<!-- <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> -->
+
+	<!-- <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" 
+		/> -->
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+		<property name="messageConverters"> <list> <ref bean="mappingJacksonHttpMessageConverter" 
+		/>json转换器 <ref bean="stringHttpMessageConverter" /> </list> </property> </bean> -->
+
+	<!-- 默认ServeletHandler -->
+	<mvc:default-servlet-handler />
+
+</beans>

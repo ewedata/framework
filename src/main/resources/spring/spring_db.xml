@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	                    http://www.springframework.org/schema/tx
+	                    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	                    http://www.springframework.org/schema/aop
+	                    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	                    http://www.springframework.org/schema/context
+         				http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 数据源在 demo.properties 中配置 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<!-- 连接池中保留的最小连接数 -->
+		<property name="minPoolSize" value="${c3p0.minPoolSize}"></property>
+		<!-- 连接池中保留的最大连接数 -->
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+		<!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间 -->
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}"></property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数 -->
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}"></property>
+		<!--检查所有连接池中的空闲连接的时间间隔(秒) -->
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"></property>
+		<!--从数据库获取新连接失败后重复尝试的次数 -->
+		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"></property>
+		<!-- c3p0将建一张名为"${c3p0.automaticTestTable}"的空表，并使用其自带的查询语句进行测试。你不能在这张表上进行任何操作 -->
+		<property name="automaticTestTable" value="${c3p0.automaticTestTable}"></property>
+	</bean>
+
+	<!-- 配置mybitasSqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis/mybatis_config.xml" />
+		<property name="mapperLocations" value="classpath:/mybatis/mappers/*Mapper.xml" />
+	</bean>
+
+	<!-- 配置SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.framework.dao.demo" />
+	</bean>
+
+	<bean id="nativeJdbcExtractor" lazy-init="true"
+		class="org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor">
+	</bean>
+
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor">
+			<ref bean="nativeJdbcExtractor" />
+		</property>
+	</bean>
+
+</beans>

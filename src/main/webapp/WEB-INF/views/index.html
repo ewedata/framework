@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>数据中心管理系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="$request.getContextPath()/static/dist/css/bootstrap/bootstrap.min.css">
+<body id="login-page" class=" pace-done" style="">
+	<div class="pace  pace-inactive">
+		<div class="pace-progress" data-progress-text="100%"
+			data-progress="99" style="width: 100%;">
+			<div class="pace-progress-inner"></div>
+		</div>
+		<div class="pace-activity"></div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="login-box">
+					<div id="login-box-holder">
+						<div class="row">
+							<div class="col-xs-12">
+								<header id="login-header">
+									<div class="login-top"></div>
+
+								</header>
+								<div id="login-box-inner">
+									<form role="form" action="" method="post" id="loginForm">
+										<div class="row">
+											<div class="login-input-box pull-left col-lg-7">
+												<div class="input-group">
+													用户名：<input class="form-control" type="text" name="username"
+														required="" placeholder="请输入用户名" ismxfilled="1"
+														style="background-color: rgb(250, 255, 189); background-position: initial initial; background-repeat: initial initial;">
+												</div>
+												<div class="input-group">
+													密码：<input class="form-control" type="password"
+														name="password" required="" placeholder="请输入密码"
+														ismxfilled="1"
+														style="background-color: rgb(250, 255, 189); background-position: initial initial; background-repeat: initial initial;">
+												</div>
+
+												<div class="row">
+													<div class="col-xs-12">
+														<button type="submit" id="Button1"
+															class="btn btn-success col-xs-12">登录</button>
+													</div>
+												</div>
+											</div>
+											<div class="erweima pull-right col-lg-5">
+												<div></div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="login-box-footer">
+						<div class="row">
+							<div class="col-xs-12">
+								<a> framework </a> | <a>关于我们</a> | <a>联系我们</a>
+								<p class="gray">Copyright framework 2011. All Rights
+									Reserved.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="/static/dist/js/bootstrap.js"></script>
+	<script src="/static/dist/js/framework.core.js"></script>
+
+</body>
+</html>

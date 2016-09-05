@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.framework.dao.SingleTableDao">
+	<delete id="DELETE">
+		DELETE
+		FROM
+		${tableName}
+		WHERE
+		<foreach collection="whereColumns" item="entry" separator="and">
+			${entry.columnName} ${entry.operand} ${entry.value}
+		</foreach>
+	</delete>
+
+	<select id="queryCount" resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		${tableName}
+		<if test="whereColumns != null and whereColumns.size() > 0">
+			WHERE
+			<foreach collection="whereColumns" item="entry" separator="and">
+				${entry.columnName} ${entry.operand} ${entry.value}
+			</foreach>
+		</if>
+		WITH
+		ur
+	</select>
+
+	<insert id="INSERT" useGeneratedKeys="true" keyProperty="generateID">
+		<include refid="INSERTSQL" />
+	</insert>
+
+	<insert id="INSERTWITHPK">
+		<include refid="INSERTSQL" />
+	</insert>
+
+	<sql id="INSERTSQL">
+		INSERT
+		INTO ${tableName}
+		<foreach collection="toInsert" item="entry" open="(" close=")"
+			separator=",">
+			${entry.key}
+		</foreach>
+		VALUES
+		<foreach collection="toInsert" item="entry" open="(" close=")"
+			separator=",">
+			${entry.value}
+		</foreach>
+	</sql>
+
+	<update id="UPDATE">
+		UPDATE ${tableName}
+		SET
+		<foreach collection="toUpdate" item="entry" separator=",">
+			${entry.key}=${entry.value}
+		</foreach>
+		WHERE
+		<foreach collection="whereColumns" item="entry" separator="and">
+			${entry.columnName} ${entry.operand} ${entry.value}
+		</foreach>
+	</update>
+
+	<select id="QUERYONE" resultType="HashMap">
+		SELECT
+		<foreach collection="resultColumns" item="entry" separator="，">
+			${entry}
+		</foreach>
+		FROM
+		${tableName} AS A
+		<if test="whereColumns != null and whereColumns.size() > 0">
+			WHERE
+			<foreach collection="whereColumns" item="entry" separator="and">
+				${entry.columnName} ${entry.operand} ${entry.value}
+			</foreach>
+		</if>
+	</select>
+
+
+	<select id="QUERY" resultType="HashMap">
+		SELECT TEMP.* FROM (
+		SELECT
+		<foreach collection="resultColumns" item="entry" separator="，">
+			${entry}
+		</foreach>
+		,rownumber() over(order by ${pkName}) as rn
+		FROM
+		${tableName} AS A
+		<if test="whereColumns != null and whereColumns.size() > 0">
+			WHERE
+			<foreach collection="whereColumns" item="entry" separator="and">
+				${entry.columnName} ${entry.operand} ${entry.value}
+			</foreach>
+		</if>
+		) AS TEMP
+
+		<if test="pageCond != null">
+			<![CDATA[
+				WHERE
+				    rn > ${pageCond.START}
+				AND rn <= ${pageCond.END}
+			]]>
+		</if>
+		WITH
+		UR
+	</select>
+
+	<select id="QUERYALL" resultType="HashMap">
+		SELECT
+		<foreach collection="resultColumns" item="entry" separator="，">
+			${entry}
+		</foreach>
+		FROM
+		${tableName} AS A
+		<if test="whereColumns != null and whereColumns.size() > 0">
+			WHERE
+			<foreach collection="whereColumns" item="entry" separator="and">
+				${entry.columnName} ${entry.operand} ${entry.value}
+			</foreach>
+		</if>
+		WITH
+		UR
+	</select>
+</mapper>
