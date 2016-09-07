@@ -1,0 +1,155 @@
+* {
+	margin: 0;
+}
+
+html,body {
+	height: 100%;
+	font-family: 微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.content {
+/* 	min-height: 100%; */
+/* 	height: auto !important; */
+/* 	height: 100%; */
+/* 	margin: 0 auto -60px; */
+}
+
+.footer {
+	height: 60px;
+	padding-top:15px;
+	text-align: center;
+	border-top: solid 1px lightgrey;
+}
+
+.copyright {
+	padding-top: 5px;
+}
+
+.endtab {
+	line-height:0.7;
+	margin-right:-8px;
+	float:none;
+}
+
+/*treeview fix*/
+.treeview .node-selected .badge{
+	background-color:#fff;
+	color:#337ab7;
+}
+
+.treeview{
+	font-size:85%;
+}
+
+li.active .badge{
+    background-color:#fff;
+    color:#337ab7;
+}
+@media (min-width: 768px) {
+  .main-tabs {
+    width:82% !important;
+    margin-left:-25px;
+  }
+}
+.main-tabs{
+    position:fixed;
+    width:100%;
+    top:50px;
+    padding-top:10px;
+    z-index:1000;
+    background-color:#fff;
+}
+.main-tabs-area{
+    margin-top: 65px;
+}
+
+.sys-alert-message{
+	position:fixed;
+	top:70px;
+	right:20px;
+	z-index:9999;
+	max-width:400px;
+	min-width:100px;
+}
+
+tr.selected{
+    background-color:#337ab7 !important;
+    color:#fff;
+}
+
+.form-text{
+	padding-top:7px;
+}
+
+.console-tab-affix{
+	top:110px;
+}
+.console-tab-affix li{
+    border-left: solid 1px white;
+    padding-left:2px;
+}
+.console-tab-affix li:hover{
+    border-left:solid 1px #b81118;
+}
+.console-tab-affix li.active{
+    background-color:white !important;
+    border-left:solid 3px #b81118;
+    padding-left:0;
+}
+.console-tab-affix li.active>a{
+    color:#b81118;
+    font-weight:bold;
+}
+.console-tab-affix a:hover{
+	cursor:pointer;
+    color:#b81118;
+    background-color:white !important;
+}
+
+.middle-toolbar{
+	padding-top:40px;
+}
+
+.small-font{
+	font-size:85%;
+}
+
+.auto-scroll-y{
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/* 2015年7月2日14:51:58 */
+
+.main{
+		background-color: #F8F8F8;
+	}
+.containerDiv{
+	background-color: #fff;
+	margin-top: 30px;
+}
+#header{
+	background-color: #fff;
+}
+.content{
+	background-color: #F8F8F8;
+	padding-bottom: 30px;
+}
+.formBox{
+	padding: 62px 0;
+	text-align: center;
+}
+.formOffset{
+	margin-right:20px;
+}
+.formfont{
+	font-size: 20px;
+	font-weight: normal;
+}
+.imgfloat{
+	float: left;
+	padding: 30px;
+}
+.imgFloatDiv{
+	max-width: 700px;
+}
