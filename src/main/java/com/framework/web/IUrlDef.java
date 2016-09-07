@@ -11,4 +11,6 @@ public interface IUrlDef {
     public String demo_add = "/api/demo/add";
 
     public String login = "/";
+
+    public String user_add="/api/user/add";
 }
