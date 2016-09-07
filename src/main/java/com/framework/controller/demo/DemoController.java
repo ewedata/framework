@@ -19,6 +19,10 @@ import com.framework.web.IUrlDef;
  */
 @Controller
 public class DemoController {
+    
+    static{
+        System.out.println("======demo controller load============");
+    }
 
     @Resource(name = "IDemoService")
     private IDemoService iDemoService;
