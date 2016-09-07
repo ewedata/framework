@@ -37,7 +37,7 @@
 	<!-- <import resource="classpath:spring/spring_security_cas_test.xml" /> -->
 
 	<!-- 以下三个 xml 根据需要选择使用其中一个 -->
-	<import resource="classpath:spring/spring_security_jdbc.xml" /> 
+	<import resource="classpath:spring/spring_security.xml" /> 
 	<!-- <import resource="classpath:spring/spring_security_cas_with_jdbc.xml" 
 		/> -->
 	<!-- <import resource="classpath:spring/spring_security_oauth2_server.xml" 
