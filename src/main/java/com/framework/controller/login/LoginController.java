@@ -23,18 +23,18 @@ public class LoginController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     @ResponseBody
-    @RequestMapping("/login")
-    public Object login() {
+    @RequestMapping("/home")
+    public Object home() {
         Map<String, Object> map = new HashMap<String, Object>();
         LOG.info("==login ...");
         return httpResponse(map, "/main.html");
     }
 
-    @RequestMapping(value = {"/home", "/"})
-    public String home() {
-        LOG.info("==== home....");
+    @RequestMapping(value = {"/"})
+    public String login() {
+        LOG.info("==== login....");
 
-        return "index";
+        return "login";
     }
 
 }
