@@ -76,5 +76,8 @@
     <session-timeout>15</session-timeout>
   </session-config>
   
-  <welcome-file-list>index.html</welcome-file-list>
+  <welcome-file-list>
+  	<welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
 </web-app>
