@@ -26,7 +26,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/home")
     public Object home() {
         Map<String, Object> map = new HashMap<String, Object>();
-        LOG.info("==login ...");
+        LOG.info("==home ...");
         return httpResponse(map, "/main.html");
     }
 
