@@ -6,7 +6,7 @@ package com.framework.entry;
  * @author matrix
  * @since 2016年8月18日 上午11:00:03
  */
-public class UserEntry extends BaseEntry {
+public class UserEntry extends BaseEntity {
 
     private String userName;
 

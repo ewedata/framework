@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 
 /**
  * 副本数据操作类型
@@ -12,7 +12,7 @@ import com.framework.entry.BaseEntry;
  * @since 2016年8月19日 下午4:56:25
  * @param <T>
  */
-public interface ICopyDao<T extends BaseEntry> extends ISingleTableDao<T> {
+public interface ICopyDao<T extends BaseEntity> extends ISingleTableDao<T> {
 
     /**
      * 当从正本同步数据到副本时，需要带主键

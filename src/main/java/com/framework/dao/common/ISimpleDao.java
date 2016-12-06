@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 
 /**
  * @author matrix
@@ -22,7 +22,7 @@ public interface ISimpleDao {
 	 *            实体类型信息
 	 * @return 是否成功删除
 	 */
-	<E extends BaseEntry> boolean deleteByEntryID(final long entryID,
+	<E extends BaseEntity> boolean deleteByEntryID(final long entryID,
 			final Class<E> entryClass);
 
 	/**
@@ -32,7 +32,7 @@ public interface ISimpleDao {
 	 *            数据实体
 	 * @return 主键
 	 */
-	long insert(final BaseEntry entry);
+	long insert(final BaseEntity entry);
 
 	/**
 	 * 带主键，新增数据
@@ -43,7 +43,7 @@ public interface ISimpleDao {
 	 *            用来操作的dao类型
 	 * @return 主键
 	 */
-	long insertWithPK(final BaseEntry entry);
+	long insertWithPK(final BaseEntity entry);
 
 	/**
 	 * 使用线索查询信息
@@ -59,7 +59,7 @@ public interface ISimpleDao {
 	 *            到类型
 	 * @return 对应的实体数据
 	 */
-	<E extends BaseEntry> E queryByEntryID(final long entryID,
+	<E extends BaseEntity> E queryByEntryID(final long entryID,
 			final Class<E> entryClass);
 
 	/**
@@ -71,6 +71,6 @@ public interface ISimpleDao {
 	 *            dao类型
 	 * @return 是否更新成功
 	 */
-	boolean update(final BaseEntry tobeUpdate);
+	boolean update(final BaseEntity tobeUpdate);
 
 }

@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 
 /**
  * The Interface for single table operating
@@ -12,7 +12,7 @@ import com.framework.entry.BaseEntry;
  * @since 2016年8月19日 下午1:56:13
  * @param <T> entry type
  */
-public interface ISingleTableDao<T extends BaseEntry> {
+public interface ISingleTableDao<T extends BaseEntity> {
     /**
      * 使用主键删除实体
      * 

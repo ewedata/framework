@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.framework.core.common.PageCond;
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 
 /**
  * @author matrix
@@ -22,7 +22,7 @@ public interface IColumsDao extends ISimpleDao {
      * @return 是否成功删除 <code>true</code>删除一行 <code>false</code>删除失败
      * 
      */
-    <E extends BaseEntry> boolean deleteByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> boolean deleteByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues);
 
     /**
@@ -34,7 +34,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType 用来操作的dao类型
      * @return 查询获得的数据
      */
-    <E extends BaseEntry> E queryByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> E queryByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues);
 
     /**
@@ -47,7 +47,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param resultColumnsName 结果列名
      * @return 查询获得的数据
      */
-    <E extends BaseEntry> E queryByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> E queryByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues, final Set<String> resultColumnsName);
 
     /**
@@ -59,7 +59,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType 用来操作的dao类型
      * @return 对应的数据实体主键
      */
-    <E extends BaseEntry> long queryEntryIdByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> long queryEntryIdByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues);
 
     /**
@@ -71,7 +71,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType 用来操作的dao类型
      * @return 对应的数据实体主键
      */
-    <E extends BaseEntry> List<Long> queryEntryIdListByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> List<Long> queryEntryIdListByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues, final PageCond pageCond);
 
     /**
@@ -83,7 +83,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType 用来操作的dao类型
      * @return 对应的实体列表，如果不存在返回空列表
      */
-    <E extends BaseEntry> List<E> queryListByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> List<E> queryListByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues, final PageCond pageCond);
 
     /**
@@ -96,7 +96,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param resultColumnsName 指定的返回列
      * @return 对应的实体列表，如果不存在返回空列表
      */
-    <E extends BaseEntry> List<E> queryListByColumns(final Class<E> classInfo,
+    <E extends BaseEntity> List<E> queryListByColumns(final Class<E> classInfo,
             final Map<String, Object> columnValues, final Set<String> resultColumnsName,
             final PageCond pageCond);
 
@@ -108,7 +108,7 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType 用来操作的dao类型
      * @return 是否更新成功 <code>true</code>更新一行 <code>false</code>更新失败
      */
-    boolean updateByColumns(final BaseEntry tobeUpdate, final Map<String, Object> columnValues);
+    boolean updateByColumns(final BaseEntity tobeUpdate, final Map<String, Object> columnValues);
 
     /**
      * 使用主键更新指定列的信息
@@ -118,5 +118,5 @@ public interface IColumsDao extends ISimpleDao {
      * @param daoType dao类型
      * @return 是否更新成功
      */
-    boolean updateColumns(final BaseEntry tobeUpdate, final Set<String> columnNameSet);
+    boolean updateColumns(final BaseEntity tobeUpdate, final Set<String> columnNameSet);
 }

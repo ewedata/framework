@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.framework.core.common.PageCond;
 import com.framework.core.utils.TransferUtil;
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 
 /**
  * @author matrix
  * @since 2016年8月17日 下午5:15:13
  * @param <T>
  */
-public abstract class SingleTableDao<T extends BaseEntry> extends BaseDao
+public abstract class SingleTableDao<T extends BaseEntity> extends BaseDao
         implements
             ISingleTableDao<T> {
 
@@ -85,7 +85,7 @@ public abstract class SingleTableDao<T extends BaseEntry> extends BaseDao
             }
             @SuppressWarnings("unchecked")
             final Class<T> firstClass = (Class<T>) firstType;
-            if (BaseEntry.class.isAssignableFrom(firstClass)) {
+            if (BaseEntity.class.isAssignableFrom(firstClass)) {
                 return firstClass;
             }
         }
@@ -252,7 +252,7 @@ public abstract class SingleTableDao<T extends BaseEntry> extends BaseDao
      * @param classInfo 目标类型
      * @return 指定entry类型的list
      */
-    protected <E extends BaseEntry> List<E> transferMapToEntryList(
+    protected <E extends BaseEntity> List<E> transferMapToEntryList(
             final List<Map<String, Object>> sourceMap, final Class<E> classInfo) {
         return null;
     }

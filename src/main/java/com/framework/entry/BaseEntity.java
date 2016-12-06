@@ -1,6 +1,7 @@
 package com.framework.entry;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
 import com.framework.core.annotatioin.EntryPK;
 
@@ -10,12 +11,16 @@ import com.framework.core.annotatioin.EntryPK;
  * @author matrix
  * @since 2016年8月17日 下午3:33:53
  */
-public class BaseEntry {
+public abstract class BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @EntryPK
     public Long id;
 
     public String creator;
+
+    public String operator;
 
     public Date createTime;
 
@@ -37,6 +42,14 @@ public class BaseEntry {
         this.creator = creator;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -52,6 +65,4 @@ public class BaseEntry {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-
 }

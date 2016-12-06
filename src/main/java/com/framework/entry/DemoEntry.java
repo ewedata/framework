@@ -1,6 +1,6 @@
 package com.framework.entry;
 
-public class DemoEntry extends BaseEntry {
+public class DemoEntry extends BaseEntity {
 
     private String demoName;
 

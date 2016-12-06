@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
 
 import com.framework.core.annotatioin.EntryPK;
 import com.framework.core.constant.Const;
-import com.framework.entry.BaseEntry;
+import com.framework.entry.BaseEntity;
 import com.framework.entry.SimpleEntry;
 
 /**
@@ -32,6 +32,7 @@ public class TransferUtil {
     private static final Map<String, String> CAMEL_CACHE = new HashMap<String, String>();
     private static final Map<String, String> DBFORMAT_CACHE = new HashMap<String, String>();
 
+    private TransferUtil() {}
 
     /**
      * 将驼峰风格字符串转化为数据库风格
@@ -137,7 +138,7 @@ public class TransferUtil {
      * @param classInfo
      * @return
      */
-    public static String extractPkName(final Class<? extends BaseEntry> classInfo) {
+    public static String extractPkName(final Class<? extends BaseEntity> classInfo) {
 
         Field[] fields = classInfo.getFields();
 
@@ -199,7 +200,7 @@ public class TransferUtil {
      * @param field 属性
      * @return 该实体内该属性的值
      */
-    private static <T extends BaseEntry> String extractColumnValue(final T entry,
+    private static <T extends BaseEntity> String extractColumnValue(final T entry,
             final Field field) {
         Object value = null;
         try {
@@ -218,7 +219,7 @@ public class TransferUtil {
      * @param includePk 是否包含主键
      * @return 列值
      */
-    public static List<Entry<String, String>> extractColumnValue(final BaseEntry entry,
+    public static List<Entry<String, String>> extractColumnValue(final BaseEntity entry,
             final boolean includePk) {
         final List<Entry<String, String>> entryList = new ArrayList<Map.Entry<String, String>>();
 
@@ -250,7 +251,7 @@ public class TransferUtil {
      * @param entryClassInfo 实体信息
      * @return 组装好的数据实体
      */
-    public <T extends BaseEntry> T transferToEntry(final Map<String, Object> resultMap,
+    public <T extends BaseEntity> T transferToEntry(final Map<String, Object> resultMap,
             final Class<T> entryClassInfo) {
         T result;
         try {
@@ -288,7 +289,7 @@ public class TransferUtil {
      * @param classInfo entry class
      * @return table name
      */
-    public static String extractTableName(final Class<? extends BaseEntry> classInfo) {
+    public static String extractTableName(final Class<? extends BaseEntity> classInfo) {
         String simpleName = classInfo.getSimpleName();
         final String className = simpleName.endsWith(Const.ENTRY)
                 ? simpleName.replaceAll(Const.ENTRY, "")
