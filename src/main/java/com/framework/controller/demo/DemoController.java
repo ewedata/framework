@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.framework.entry.DemoEntry;
+import com.framework.entity.DemoEntry;
 import com.framework.service.demo.IDemoService;
 import com.framework.web.IUrlDef;
 

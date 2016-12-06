@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 /**
  * @author matrix

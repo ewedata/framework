@@ -1,4 +1,4 @@
-package com.framework.entry;
+package com.framework.entity;
 
 import java.util.Map;
 import java.util.Map.Entry;

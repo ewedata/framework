@@ -5,7 +5,7 @@ package com.framework.dao.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 /**
  * @author 朱诗君 zhushijun@bankcomm.com 交通银行 2010-11-4

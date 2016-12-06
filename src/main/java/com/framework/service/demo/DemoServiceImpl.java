@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.framework.dao.demo.IDemoDao;
-import com.framework.entry.DemoEntry;
+import com.framework.entity.DemoEntry;
 
 @Service("IDemoService")
 public class DemoServiceImpl implements IDemoService {

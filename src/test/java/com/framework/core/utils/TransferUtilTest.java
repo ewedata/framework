@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.framework.BaseTest;
-import com.framework.entry.UserEntry;
+import com.framework.entity.UserEntry;
 
 
 public class TransferUtilTest extends BaseTest {

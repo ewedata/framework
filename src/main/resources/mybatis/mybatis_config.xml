@@ -18,6 +18,6 @@
 
 	<!-- 别名配置,查找该包内的所有bean，bean实例名为类名 -->
 	<typeAliases>
-		<package name="com.framework.entry" />
+		<package name="com.framework.entity" />
 	</typeAliases>
 </configuration>

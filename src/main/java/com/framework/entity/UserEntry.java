@@ -1,4 +1,4 @@
-package com.framework.entry;
+package com.framework.entity;
 
 /**
  * user entry.

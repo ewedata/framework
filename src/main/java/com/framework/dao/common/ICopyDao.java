@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 /**
  * 副本数据操作类型

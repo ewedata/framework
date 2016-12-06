@@ -3,7 +3,7 @@
  */
 package com.framework.dao.common;
 
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 /**
  * The Interface for single table operating

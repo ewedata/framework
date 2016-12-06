@@ -18,8 +18,8 @@ import org.springframework.util.Assert;
 
 import com.framework.core.annotatioin.EntryPK;
 import com.framework.core.constant.Const;
-import com.framework.entry.BaseEntity;
-import com.framework.entry.SimpleEntry;
+import com.framework.entity.BaseEntity;
+import com.framework.entity.SimpleEntry;
 
 /**
  * this class is a tool for transferring anything.

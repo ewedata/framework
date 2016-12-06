@@ -1,4 +1,4 @@
-package com.framework.entry;
+package com.framework.entity;
 
 public class DemoEntry extends BaseEntity {
 

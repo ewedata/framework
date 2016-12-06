@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.framework.core.common.PageCond;
 import com.framework.core.utils.TransferUtil;
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 /**
  * @author matrix

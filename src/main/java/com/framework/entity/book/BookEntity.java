@@ -1,8 +1,8 @@
-package com.framework.entry.book;
+package com.framework.entity.book;
 
 import java.sql.Date;
 
-import com.framework.entry.BaseEntity;
+import com.framework.entity.BaseEntity;
 
 public class BookEntity extends BaseEntity {
 
