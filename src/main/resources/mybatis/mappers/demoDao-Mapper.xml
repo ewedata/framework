@@ -5,9 +5,9 @@
 
 
 	<!-- 数据库映射配置 -->
-	<resultMap type="com.framework.entry.DemoEntry" id="demoEntry">
+	<resultMap type="com.framework.entity.DemoEntry" id="demoEntry">
 		<id property="id" column="id" />
-		<result property="demoName" column="demo_Name" />
+		<result property="demoName" column="demo_name" />
 		<result property="comm" column="comm" />
 		<result property="creator" column="creator" />
 		<result property="createTime" column="create_time" />

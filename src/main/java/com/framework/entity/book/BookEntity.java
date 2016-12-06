@@ -20,7 +20,7 @@ public class BookEntity extends BaseEntity {
 
     private String content;
 
-    private String memo;
+    private String desc;
 
     public BookEntity() {
         super();
@@ -58,12 +58,12 @@ public class BookEntity extends BaseEntity {
         this.issueDate = issueDate;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getBookNo() {

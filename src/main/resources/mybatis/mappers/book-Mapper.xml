@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.framework.entity.book.BookEntity">
+
+	<!-- 数据库映射配置 -->
+	<resultMap type="com.framework.entity.book.BookEntity" id="bookEntity">
+		<id property="id" column="id" />
+		<result property="bookNo" column="book_no" />
+		<result property="title" column="title" />
+		<result property="author" column="author" />
+		<result property="publisher" column="publisher" />
+		<result property="issueDate" column="issue_date" />
+		<result property="content" column="content" />
+		<result property="desc" column="desc" />
+		<result property="creator" column="creator" />
+		<result property="operator" column="operator" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="bookEntity">
+		insert into book(
+		book_no,title,author,publisher,issue_date,content,`desc`
+		)
+		values(#{bookNo},#{title},#{author},#{publisher},#{issueDate},#{content},#{desc})
+	</insert>
+
+</mapper>

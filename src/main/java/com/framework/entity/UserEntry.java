@@ -8,6 +8,8 @@ package com.framework.entity;
  */
 public class UserEntry extends BaseEntity {
 
+    private static final long serialVersionUID = -3042404306596772838L;
+
     private String userName;
 
     private Integer age;
