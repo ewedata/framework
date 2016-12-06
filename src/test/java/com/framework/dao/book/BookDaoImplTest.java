@@ -1,6 +1,7 @@
 package com.framework.dao.book;
 
-import static org.junit.Assert.fail;
+import java.sql.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +21,35 @@ public class BookDaoImplTest extends BaseTest {
         entity.setTitle("人在江湖漂");
         entity.setBookNo("123456");
         entity.setContent("bds");
+        entity.setIssueDate(new Date(1234123343123L));
         bookDao.save(entity);
 
     }
 
     @Test
     public void testUpdate() {
-        fail("Not yet implemented");
+        BookEntity entity = new BookEntity();
+        entity.setId(1L);
+        entity.setAuthor("liuaoz");
+        entity.setTitle("人在江湖漂");
+        entity.setBookNo("123456");
+        entity.setContent("bds");
+        entity.setIssueDate(new Date(1234123343123L));
+        bookDao.update(entity);
     }
 
     @Test
     public void testQueryById() {
-        fail("Not yet implemented");
+        BookEntity entity = bookDao.queryById(1L);
+        System.out.println(entity);
     }
 
     @Test
     public void testQueryListByName() {
-        fail("Not yet implemented");
+        List<BookEntity> list = bookDao.queryListByName("人");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
 }

@@ -1,6 +1,5 @@
 package com.framework.dao.common;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,21 +19,9 @@ public abstract class BaseDao implements IBaseDao {
     private String tableName;
 
 
-    @Autowired(required = true)
-    private SqlSessionFactory sqlSessionFactory;
-
     @Autowired
     public SqlSessionTemplate sqlSessionTemplate;
 
-    /*
-     * 首先检查原来的getSqlSessionTemplate实例是否存在 如果不存在，则创建一个SqlMapClientTemplate实例
-     */
-    public SqlSessionTemplate getSqlSessionTemplate() {
-        if (this.sqlSessionTemplate == null) {
-            this.sqlSessionTemplate = new SqlSessionTemplate(this.sqlSessionFactory);
-        }
-        return this.sqlSessionTemplate;
-    }
 
     protected BaseDao() {
         super();

@@ -28,4 +28,30 @@
 		values(#{bookNo},#{title},#{author},#{publisher},#{issueDate},#{content},#{desc})
 	</insert>
 
+	<update id="update" parameterType="bookEntity">
+		update book set book_no =
+		#{bookNo},
+		title=#{title},author=#{author},
+		publisher=#{publisher},issue_date=#{issueDate},
+		content=#{content},
+		`desc`=#{desc}
+		where id = #{id}
+	</update>
+
+	<select id="queryById" parameterType="java.lang.Long"
+		resultType="bookEntity">
+		select
+		id,book_no,title,author,publisher,issue_date,content,`desc`
+		from book
+		where id = #{id}
+	</select>
+
+	<select id="queryListByName" parameterType="java.lang.String" resultType="map">
+		select
+		id,book_no,title,author,publisher,issue_date,content,`desc`
+		from
+		book
+		where title like '%${_parameter}%'
+	</select>
+
 </mapper>

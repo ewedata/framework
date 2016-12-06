@@ -37,7 +37,9 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
     @Override
     public List<BookEntity> queryListByName(String title) {
-        return sqlSessionTemplate.selectList(namespace + ".queryListByName", title);
+        List<BookEntity> list =
+                sqlSessionTemplate.selectList(namespace + ".queryListByName", title);
+        return list;
     }
 
 }
