@@ -25,7 +25,7 @@ public class BookController extends BaseController {
 
     @RequestMapping("/list")
     public ModelAndView list(@RequestParam Long id) {
-        ModelAndView mv = new ModelAndView("/");
+        ModelAndView mv = new ModelAndView("booklist");
         mv.addObject(bookService.queryBookById(id));
         return mv;
     }

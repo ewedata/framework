@@ -1,0 +1,22 @@
+<html>
+<head>
+ <title>liuaoz</title>  
+</head>
+<body>
+  <div>
+      
+  </div>
+ 		#parse("views/layout/header.vm")
+  <div>
+ 
+    <!-- View abc.vm is inserted here -->
+    <!-- Noi dung View abc.vm se duoc tren tai day -->    
+    $screen_content
+
+  </div>
+ 
+  <div>
+      #parse("views/layout/footer.vm")
+  </div>
+</body>
+</html>
