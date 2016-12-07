@@ -145,16 +145,10 @@
 			<version>20140107</version>
 		</dependency>
 		<!-- Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.3.2.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.10.Final</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-validator</artifactId> 
+			<version>4.3.2.Final</version> </dependency> <dependency> <groupId>org.hibernate</groupId> 
+			<artifactId>hibernate-entitymanager</artifactId> <version>3.6.10.Final</version> 
+			</dependency> -->
 
 		<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ MyBatis ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
 		<dependency>
@@ -404,6 +398,14 @@
 			<groupId>com.itextpdf.tool</groupId>
 			<artifactId>xmlworker</artifactId>
 			<version>5.5.9</version>
+		</dependency>
+
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.12</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

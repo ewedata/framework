@@ -6,12 +6,12 @@ import com.framework.entity.book.BookEntity;
 
 public interface IBookDao {
 
-    public void save(BookEntity entity);
+    public void insert(BookEntity entity);
 
     public void update(BookEntity entity);
 
-    public BookEntity queryById(Long id);
+    public BookEntity selectById(Long id);
 
-    public List<BookEntity> queryListByName(String title);
+    public List<BookEntity> selectListByName(String title);
 
 }

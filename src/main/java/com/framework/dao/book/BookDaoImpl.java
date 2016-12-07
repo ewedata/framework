@@ -20,7 +20,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
     private String namespace = BookEntity.class.getName().toString();
 
     @Override
-    public void save(BookEntity entity) {
+    public void insert(BookEntity entity) {
         sqlSessionTemplate.insert(namespace + ".insert", entity);
     }
 
@@ -31,12 +31,12 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
     }
 
     @Override
-    public BookEntity queryById(Long id) {
+    public BookEntity selectById(Long id) {
         return (BookEntity) sqlSessionTemplate.selectOne(namespace + ".queryById", id);
     }
 
     @Override
-    public List<BookEntity> queryListByName(String title) {
+    public List<BookEntity> selectListByName(String title) {
         List<BookEntity> list =
                 sqlSessionTemplate.selectList(namespace + ".queryListByName", title);
         return list;

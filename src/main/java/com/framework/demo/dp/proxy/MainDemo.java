@@ -7,11 +7,7 @@ public class MainDemo {
 
 
     public static void main(String[] args) {
-        ISubject iSubject = new SubjectImpl();
 
-        SubjectProxy sp = new SubjectProxy(iSubject);
-
-        sp.request();
     }
 
 }

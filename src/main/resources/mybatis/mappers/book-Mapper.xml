@@ -23,9 +23,9 @@
 	<!-- 添加 -->
 	<insert id="insert" parameterType="bookEntity">
 		insert into book(
-		book_no,title,author,publisher,issue_date,content,`desc`
+		book_no,title,author,publisher,issue_date,content,`desc`,creator,operator
 		)
-		values(#{bookNo},#{title},#{author},#{publisher},#{issueDate},#{content},#{desc})
+		values(#{bookNo},#{title},#{author},#{publisher},#{issueDate},#{content},#{desc},#{creator},#{operator})
 	</insert>
 
 	<update id="update" parameterType="bookEntity">
@@ -46,7 +46,8 @@
 		where id = #{id}
 	</select>
 
-	<select id="queryListByName" parameterType="java.lang.String" resultType="map">
+	<select id="queryListByName" parameterType="java.lang.String"
+		resultMap="bookEntity">
 		select
 		id,book_no,title,author,publisher,issue_date,content,`desc`
 		from

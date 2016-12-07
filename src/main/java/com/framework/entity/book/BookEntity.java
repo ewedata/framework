@@ -84,9 +84,9 @@ public class BookEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return "[" + "bookNo=" + this.bookNo + ",title=" + this.title + ",author=" + this.author
-                + ",publisher=" + this.publisher + ",issueDate=" + this.issueDate + ",content="
-                + this.content + ",desc=" + this.desc + "]";
+        return "[" + "id=" + this.id + ",bookNo=" + this.bookNo + ",title=" + this.title
+                + ",author=" + this.author + ",publisher=" + this.publisher + ",issueDate="
+                + this.issueDate + ",content=" + this.content + ",desc=" + this.desc + "]";
     }
 
 }
