@@ -2,6 +2,19 @@
 	margin: 0;
 }
 
+.copyright-text{
+  color: #596879;
+  font-size: 16px;
+  padding-bottom: 15px;
+  text-align: center;
+  line-height: 80px;
+}
+
+.site-footer-links {
+    margin: 0;
+    list-style: none;
+}
+
 html,body {
 	height: 100%;
 	font-family: 微软雅黑,"Helvetica Neue",Helvetica,Arial,sans-serif;
