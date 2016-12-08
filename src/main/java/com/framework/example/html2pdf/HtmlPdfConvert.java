@@ -2,7 +2,6 @@ package com.framework.example.html2pdf;
 
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,38 +14,60 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.log.Level;
+import com.itextpdf.text.log.Logger;
+import com.itextpdf.text.log.LoggerFactory;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.ElementList;
+import com.itextpdf.text.pdf.codec.Base64;
+import com.itextpdf.tool.xml.NoCustomContextException;
 import com.itextpdf.tool.xml.Pipeline;
+import com.itextpdf.tool.xml.Tag;
+import com.itextpdf.tool.xml.WorkerContext;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerFontProvider;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.itextpdf.tool.xml.css.CssFile;
-import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
+import com.itextpdf.tool.xml.exceptions.LocaleMessages;
+import com.itextpdf.tool.xml.exceptions.RuntimeWorkerException;
 import com.itextpdf.tool.xml.html.CssAppliers;
 import com.itextpdf.tool.xml.html.CssAppliersImpl;
+import com.itextpdf.tool.xml.html.HTML;
 import com.itextpdf.tool.xml.html.Tags;
 import com.itextpdf.tool.xml.parser.XMLParser;
 import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
 import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
-import com.itextpdf.tool.xml.pipeline.end.ElementHandlerPipeline;
 import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
+import com.itextpdf.tool.xml.pipeline.html.AbstractImageProvider;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 
-public class D07_ParseHtmlAsian {
+public class HtmlPdfConvert {
 
 
-    private final static String HTML = "e:\\test.html";
+    private final static String S_HTML = "e:\\in.html";
 
     private final static String PDF = "e:\\out.pdf";
 
-    private final static String CSS = "e:\\en_css.css";
+    private final static String CSS = "e:\\texthtml.css";
+
+    /**
+     * Main method
+     */
+    public static void main(String[] args) throws IOException, DocumentException {
+        createPdf2();
+    }
 
     /**
      * Creates a PDF with the words "Hello World"
@@ -63,19 +84,19 @@ public class D07_ParseHtmlAsian {
         // step 3
         document.open();
 
-        D07_ParseHtmlAsian.MyFontsProvider fontProvider = new D07_ParseHtmlAsian.MyFontsProvider();
+        HtmlPdfConvert.MyFontsProvider fontProvider = new HtmlPdfConvert.MyFontsProvider();
         fontProvider.addFontSubstitute("lowagie", "garamond");
         fontProvider.setUseUnicode(true);
 
         // step 4
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(HTML),
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(S_HTML),
                 new FileInputStream(CSS), Charset.forName("UTF-8"), fontProvider);
         // step 5
         document.close();
     }
 
     /**
-     * 支持中文
+     * 图片内容在html页面中时，使用以下方法
      * 
      * @param file
      * @throws IOException
@@ -86,15 +107,23 @@ public class D07_ParseHtmlAsian {
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF));
         document.open();
-        D07_ParseHtmlAsian.MyFontsProvider fontProvider = new D07_ParseHtmlAsian.MyFontsProvider();
+        HtmlPdfConvert.MyFontsProvider fontProvider = new HtmlPdfConvert.MyFontsProvider();
         fontProvider.addFontSubstitute("lowagie", "garamond");
         fontProvider.setUseUnicode(true);
         // 使用我们的字体提供器，并将其设置为unicode字体样式
         CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
+
+        // css
+        CSSResolver cssResolver = XMLWorkerHelper.getInstance().getDefaultCssResolver(true);
+        CssFile cssFile = XMLWorkerHelper.getCSS(new FileInputStream(CSS));
+        cssResolver.addCss(cssFile);
+
+
+        // html
         HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+        htmlContext.setImageProvider(new Base64ImageProvider());
 
-        CSSResolver cssResolver = XMLWorkerHelper.getInstance().getDefaultCssResolver(true);
 
         // pipelines
         Pipeline<?> pipeline = new CssResolverPipeline(cssResolver,
@@ -103,7 +132,7 @@ public class D07_ParseHtmlAsian {
         // XML worker
         XMLWorker worker = new XMLWorker(pipeline, true);
         XMLParser p = new XMLParser(worker);
-        File input = new File(HTML);
+        File input = new File(S_HTML);
         p.parse(new InputStreamReader(new FileInputStream(input), "UTF-8"));
         document.close();
     }
@@ -120,7 +149,7 @@ public class D07_ParseHtmlAsian {
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF));
         document.open();
-        D07_ParseHtmlAsian.MyFontsProvider fontProvider = new D07_ParseHtmlAsian.MyFontsProvider();
+        HtmlPdfConvert.MyFontsProvider fontProvider = new HtmlPdfConvert.MyFontsProvider();
         fontProvider.addFontSubstitute("lowagie", "garamond");
         fontProvider.setUseUnicode(true);
         // 使用我们的字体提供器，并将其设置为unicode字体样式
@@ -129,53 +158,10 @@ public class D07_ParseHtmlAsian {
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
 
         XMLWorkerHelper.getInstance().parseXHtml(writer, document,
-                new FileInputStream(new File(HTML)), new FileInputStream(new File(CSS)),
+                new FileInputStream(new File(S_HTML)), new FileInputStream(new File(CSS)),
                 Charset.forName("UTF-8"), fontProvider);
         document.close();
     }
-
-    /**
-     * 支持中文3
-     * 
-     * @param file
-     * @throws IOException
-     * @throws DocumentException
-     */
-    public static void createPdf3() throws IOException, DocumentException {
-
-        Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF));
-        document.open();
-        D07_ParseHtmlAsian.MyFontsProvider fontProvider = new D07_ParseHtmlAsian.MyFontsProvider();
-        fontProvider.addFontSubstitute("lowagie", "garamond");
-        fontProvider.setUseUnicode(true);
-        // 使用我们的字体提供器，并将其设置为unicode字体样式
-        CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
-
-
-        CSSResolver cssResolver = new StyleAttrCSSResolver();
-        CssFile cssFile = XMLWorkerHelper.getCSS(new ByteArrayInputStream(toByteArray(CSS)));
-        cssResolver.addCss(cssFile);
-
-        // HTML
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-
-        // pipelines
-        ElementList elements = new ElementList();
-        ElementHandlerPipeline pdf = new ElementHandlerPipeline(elements, null);
-        HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-        CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-
-
-        // XML worker
-        XMLWorker worker = new XMLWorker(css, true);
-        XMLParser p = new XMLParser(worker);
-        p.parse(new InputStreamReader(new FileInputStream(new File(HTML)), "UTF-8"));
-
-        document.close();
-    }
-
 
     /**
      * Creates a PDF with the words "Hello World"
@@ -206,7 +192,7 @@ public class D07_ParseHtmlAsian {
                 int filesize = urlconn.getContentLength(); // 取数据长度
                 byte[] b = new byte[filesize];
                 bis = new BufferedInputStream(httpconn.getInputStream());
-                
+
                 // step 1
                 Document document = new Document();
                 // step 2
@@ -214,8 +200,8 @@ public class D07_ParseHtmlAsian {
                 // step 3
                 document.open();
 
-                D07_ParseHtmlAsian.MyFontsProvider fontProvider =
-                        new D07_ParseHtmlAsian.MyFontsProvider();
+                HtmlPdfConvert.MyFontsProvider fontProvider =
+                        new HtmlPdfConvert.MyFontsProvider();
                 fontProvider.addFontSubstitute("lowagie", "garamond");
                 fontProvider.setUseUnicode(true);
 
@@ -224,13 +210,13 @@ public class D07_ParseHtmlAsian {
                         new FileInputStream(CSS), Charset.forName("UTF-8"), fontProvider);
                 // step 5
                 document.close();
-                
+
                 int r = 0;
                 while ((r = bis.read(b)) > 0);
                 System.out.println("length::" + filesize);
                 // System.out.println("string:"+new String(b,"UTF-8"));
 
-              
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -279,13 +265,6 @@ public class D07_ParseHtmlAsian {
         }
     }
 
-    /**
-     * Main method
-     */
-    public static void main(String[] args) throws IOException, DocumentException {
-        createPdf();
-    }
-
     public static class MyFontsProvider extends XMLWorkerFontProvider {
         public MyFontsProvider() {
             super(null, null);
@@ -301,4 +280,77 @@ public class D07_ParseHtmlAsian {
             return super.getFont(fntname, encoding, size, style);
         }
     }
+
+    private static class Base64ImageProvider extends AbstractImageProvider {
+
+        @Override
+        public Image retrieve(String src) {
+            int pos = src.indexOf("base64,");
+            try {
+                if (src.startsWith("data") && pos > 0) {
+                    byte[] img = Base64.decode(src.substring(pos + 7));
+                    return Image.getInstance(img);
+                } else {
+                    return Image.getInstance(src);
+                }
+            } catch (BadElementException ex) {
+                return null;
+            } catch (IOException ex) {
+                return null;
+            }
+        }
+
+        @Override
+        public String getImageRootPath() {
+            return null;
+        }
+    }
+
+    private class ImageTagProcessor extends com.itextpdf.tool.xml.html.Image {
+
+        private final Logger logger = LoggerFactory.getLogger(getClass());
+
+        @Override
+        public List<Element> end(WorkerContext ctx, Tag tag, List<Element> currentContent) {
+
+            final Map<String, String> attributes = tag.getAttributes();
+            String src = attributes.get(HTML.Attribute.SRC);
+            List<Element> elements = new ArrayList<Element>(1);
+            if (null != src && src.length() > 0) {
+                Image img = null;
+                if (src.startsWith("data:image/")) {
+                    final String base64Data = src.substring(src.indexOf(",") + 1);
+                    try {
+                        img = Image.getInstance(Base64.decode(base64Data));
+                    } catch (Exception e) {
+                        if (logger.isLogging(Level.ERROR)) {
+                            logger.error(String.format(LocaleMessages.getInstance()
+                                    .getMessage(LocaleMessages.HTML_IMG_RETRIEVE_FAIL), src), e);
+                        }
+                    }
+                    if (img != null) {
+                        try {
+                            final HtmlPipelineContext htmlPipelineContext =
+                                    getHtmlPipelineContext(ctx);
+                            elements.add(getCssAppliers().apply(
+                                    new Chunk((com.itextpdf.text.Image) getCssAppliers().apply(img,
+                                            tag, htmlPipelineContext), 0, 0, true),
+                                    tag, htmlPipelineContext));
+                        } catch (NoCustomContextException e) {
+                            throw new RuntimeWorkerException(e);
+                        }
+                    }
+                }
+
+                if (img == null) {
+                    elements = super.end(ctx, tag, currentContent);
+                }
+            }
+            return elements;
+
+        }
+
+    }
 }
+
+
