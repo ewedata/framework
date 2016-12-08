@@ -138,30 +138,13 @@ public class HtmlPdfConvert {
     }
 
     /**
-     * 支持中文4
-     * 
-     * @param file
-     * @throws IOException
-     * @throws DocumentException
+     * 添加水印
      */
-    public static void createPdf4() throws IOException, DocumentException {
+    public static void addWaterMark() {
 
-        Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF));
-        document.open();
-        HtmlPdfConvert.MyFontsProvider fontProvider = new HtmlPdfConvert.MyFontsProvider();
-        fontProvider.addFontSubstitute("lowagie", "garamond");
-        fontProvider.setUseUnicode(true);
-        // 使用我们的字体提供器，并将其设置为unicode字体样式
-        CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
-        HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
-        htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
 
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document,
-                new FileInputStream(new File(S_HTML)), new FileInputStream(new File(CSS)),
-                Charset.forName("UTF-8"), fontProvider);
-        document.close();
     }
+
 
     /**
      * Creates a PDF with the words "Hello World"
@@ -200,8 +183,7 @@ public class HtmlPdfConvert {
                 // step 3
                 document.open();
 
-                HtmlPdfConvert.MyFontsProvider fontProvider =
-                        new HtmlPdfConvert.MyFontsProvider();
+                HtmlPdfConvert.MyFontsProvider fontProvider = new HtmlPdfConvert.MyFontsProvider();
                 fontProvider.addFontSubstitute("lowagie", "garamond");
                 fontProvider.setUseUnicode(true);
 
